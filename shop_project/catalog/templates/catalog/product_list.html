@@ -23,5 +23,47 @@
         <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Name Z-A</option>
     </select>
     <button type="submit">Apply</button>
-    <!-- Category -->
 </form>
+    <!-- Category -->
+<div style="display: flex; gap: 20px;">
+    <aside style="min-width: 220px;">
+        <h3>Categories</h3>
+        <ul style="list-style: none; padding: 0;">
+            <li>
+                <a href="{% url 'catalog:product_list' %}">All</a>
+            </li>
+            {% for c in categories %}
+            <li style="margin: 6px 0;">
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    <section style="flex: 1;">
+        {% if products %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px;">
+            {% for product in products %}
+            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px #fff;">
+                <a href="{{ product.get_absolute_url }}">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 180px; object-fit: cover;">
+                    {% else %}
+                    <div style="width: 100%; height: 180px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        No photo
+                    </div>
+                    {% endif %}
+                </a>
+                <h4 style="margin: 10px 0 5px;">
+                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                </h4>
+                <p style="margin: 0;">{{ product.price }}$</p>
+                <p style="margin: 4px 0; color: #666;">In stock: {{ product.stock }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Product not found</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

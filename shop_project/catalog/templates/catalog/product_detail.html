@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} {{ product.name }} {% endblock %}
+{% bblock content %}
+<div style="display: flex; gap: 30px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 280px;">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; max-width: 500px; object-fit: cover;">
+        {% else %}
+        <div style="width: 100%; max-width: 500px; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+            No photo
+        </div>
+        {% endif %}
+    </div>
+    <div style="flex: 1; min-width: 280px;">
+        <h1>{{ product.name }}</h1>
+        <p><strong>Category:</strong>{{ product.category.name }}</p>
+        <p><strong>Price:</strong>{{ product.price }} $</p>
+        <p><strong>Stock:</strong>{{ product.stock }}</p>
+        <p>{{ product.descrition }}</p>
+    </div>
+</div>
+{% endblock %}
