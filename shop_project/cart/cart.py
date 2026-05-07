@@ -27,17 +27,17 @@ class Cart:
         self.session.modified=True
 
     def remove(self, product):
-        product_id = str(product_id)
+        product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
 
     def __iter__(self):
-        product_ids = self.cart.keys()
-        products = Product.objects.filter(id__=product_ids)
+        product_ids = [int(pid) for pid in self.cart.keys()]
+        products = Product.objects.filter(id__in=product_ids)
 
         for product in products:
-            item = self.cart[str(product.id)]
+            item = self.cart[str(product.id)].copy()
             item['product'] = product
             item['total_price'] = Decimal(item['price']) * item['quantity']
             yield item

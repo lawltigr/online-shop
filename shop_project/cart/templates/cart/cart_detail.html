@@ -13,7 +13,19 @@
     {% for item in cart %}
     <tr>
         <td>{{ item.product.name }}</td>
-        <td>{{ item.quantity }}</td>
+        <td>
+            <form action="{% url 'cart:cart_update' item.product.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="decrease">
+                <button type="submit"> - </button>
+            </form>
+            {{ item.quantity }}
+            <form action="{% url 'cart:cart_update' item.product.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="increase">
+                <button type="submit"> + </button>
+            </form>
+        </td>
         <td>{{ item.price }}</td>
         <td>{{ item.total_price }}</td>
         <td>
