@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Order created{% endblock %}
+{% block content %}
+    <h1>Thank you!</h1>
+    <p>Your order has been created.</p>
+    <p>Order number: <strong>#{{order.id}}</strong></p>
+    <p>Total: <strong>{{ order.get_total_price }}</strong></p>
+    <a href="/">Back to shop</a>
+{% endblock %}

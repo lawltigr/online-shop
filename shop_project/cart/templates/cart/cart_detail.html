@@ -35,6 +35,7 @@
     {% endfor %}
 </table>
 <p><strong>Total: {{cart.get_total_price }}</strong></p>
+<p><a href="{% url 'orders:order_create' %}">Checkout</a></p>
 {% else %}
 <p>Cart is empty</p>
 {% endif %}
