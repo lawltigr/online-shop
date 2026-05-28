@@ -28,7 +28,7 @@ def dashboard_view(request):
         .annotate(count=Count('id'))
         .order_by('day')
     )
-    labels = [item['day'].strftime('%Y-%m-%d') for item in orders_by_day]
+    labels = [str(item['day']) for item in orders_by_day]
     data = [item['count'] for item in orders_by_day]
     context = {
         'total_orders': total_orders,

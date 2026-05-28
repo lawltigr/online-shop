@@ -8,7 +8,7 @@
         </div>
         <div style="padding: 20px; background: #f5f5f5; border-radius: 10px;">
             <h3>Total Revenue</h3>
-            <h2>{{ total_revenue }}</h2>
+            <h2>{{ total_revenue|floatformat:2 }}</h2>
         </div>
         <div style="padding: 20px; background: #f5f5f5; border-radius: 10px;">
             <h3>Total Users</h3>
@@ -27,8 +27,8 @@
         </tr>
         {% for item in top_products %}
         <tr>
-            <td>{{ item.product_name }}</td>
-            <td>{{ item.totl_sold }}</td>
+            <td>{{ item.product__name }}</td>
+            <td>{{ item.total_sold }}</td>
         </tr>
         {% endfor %}
     </table>
