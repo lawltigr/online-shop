@@ -3,56 +3,70 @@
 {% if category %}{{category.name}} {% else %}Catalog{% endif %}
 {% endblock %}
 {% block content %}
-<h1>
+<h1 class="mb-4">
     {% if category %}Category: {{category.name}}{% else %}Product Catalog{% endif %}
 </h1>
-<form method="get" style="margin: 15px 0; display: flex; gap: 10px; flex-wrap: wrap;">
-    <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
-    <input type="number" step="0.01" name="min_price" placeholder="Minimal price" value="{{ request.GET.min_price }}">
-    <input type="number" step="0.01" name="max_price" placeholder="Maximum price" value="{{ request.GET.max_price }}">
+<form method="get" class="card card-body shadow-sm mb-4">
+    <div class="col-md-3">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+    </div>
+    <div class="col-md-2">
+        <input type="number" step="0.01" name="min_price" placeholder="Minimal price" value="{{ request.GET.min_price }}">
+    </div>
+    <div class="col-md-2">
+        <input type="number" step="0.01" name="max_price" placeholder="Maximum price" value="{{ request.GET.max_price }}">
+    </div>
 
-    <label>
-        <input type="checkbox" name="in_stock" value="1" {% if request.GET.in_stock == '1' %}checked{% endif %}>
-        Only in stock
-    </label>
-    <select name="sort">
-        <option value="">Sort</option>
-        <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price ↑</option>
-        <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price ↓</option>
-        <option value="name_asc" {% if request.GET.sort == 'name_asc' %}selected{% endif %}>Name A-Z</option>
-        <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Name Z-A</option>
-    </select>
-    <button type="submit">Apply</button>
+    <div class="col-md-2">
+        <select name="sort" class="form-select">
+            <option value="">Sort</option>
+            <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price ↑</option>
+            <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price ↓</option>
+            <option value="name_asc" {% if request.GET.sort == 'name_asc' %}selected{% endif %}>Name A-Z</option>
+            <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Name Z-A</option>
+        </select>
+    </div>
+    <div class="col-md-2 d-flex align-items-center">
+        <div class="form-check">
+            <input type="checkbox" name="in_stock" value="1" {% if request.GET.in_stock == '1' %}checked{% endif %}>
+            <label class="form-check-label">Only in stock</label>
+        </div>
+    </div>
+        
+    <div class="col-md-1">
+        <button type="submit" class="btn btn-primary w-100">Apply</button>
+    </div>
+    
 </form>
     <!-- Category -->
-<div style="display: flex; gap: 20px;">
-    <aside style="min-width: 220px;">
-        <h3>Categories</h3>
-        <ul style="list-style: none; padding: 0;">
-            <li>
-                <a href="{% url 'catalog:product_list' %}">All</a>
-            </li>
-            {% for c in categories %}
-            <li style="margin: 6px 0;">
-                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+<div class="row">
+    <aside class="col-md-3 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold">Categories</div>
+            <div class="list-group list-group-flush">
+                <a href="{% url 'catalog:product_list' %}" class="list-group-item list-group-item-action">All</a>
+                {% for c in categories %}
+                    <a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action">{{ c.name }}</a>
+                {% endfor %}
+            </div>
     </aside>
-    <section style="flex: 1;">
-        {% if products %}
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px;">
+    <section class="col-md-9">
+        <div class="row g-4">
             {% for product in products %}
-            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #fff;">
-                <a href="{{ product.get_absolute_url }}">
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 180px; object-fit: cover;">
-                    {% else %}
-                    <div style="width: 100%; height: 180px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        No photo
-                    </div>
-                    {% endif %}
-                </a>
+            <div class="col-md-4">
+                <div class="card product-card shadow-sm h-100">
+                    <a href="{{ product.get_absolute_url }}">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 180px; object-fit: cover;">
+                        {% else %}
+                        <div style="width: 100%; height: 180px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                            No photo
+                        </div>
+                        {% endif %}
+                    </a>
+                </div>
+                <!-- start here -->
+                
                 <h4 style="margin: 10px 0 5px;">
                     <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
                 </h4>

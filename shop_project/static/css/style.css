@@ -1,0 +1,30 @@
+body{
+    background: #f6f7fb;
+}
+.card{
+    border: none;
+    border-radius: 16px;
+}
+.card-img-top{
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.product-card{
+    transition: 0.2s ease;
+}
+.product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.btn {
+    border-radius: 10px;
+}
+.table{
+    background: white;
+}
+.dashboard-card {
+    border-radius: 18px;
+    background: white;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
