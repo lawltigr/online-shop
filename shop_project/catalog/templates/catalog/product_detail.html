@@ -2,21 +2,36 @@
 {% block title %} {{ product.name }} {% endblock %}
 {% block content %}
 <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-    <div style="flex: 1; min-width: 280px;">
-        {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; max-width: 500px; object-fit: cover;">
-        {% else %}
-        <div style="width: 100%; max-width: 500px; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-            No photo
+    <div class="col-md-6">
+        <div class="card shadow-sm overflow-hidden">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" style="width: 100%; height: 350px; object-fit: cover; background: white;">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 520px;">
+                No photo
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
-    <div style="flex: 1; min-width: 280px;">
-        <h1>{{ product.name }}</h1>
-        <p><strong>Category:</strong>{{ product.category.name }}</p>
-        <p><strong>Price:</strong>{{ product.price }} $</p>
-        <p><strong>Stock:</strong>{{ product.stock }}</p>
-        <p>{{ product.descrition }}</p>
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <h1 class="fw-bold mb-3">{{ product.name }}</h1>
+            <span class="badge bg-secondary mb-3" style="width: fit-content;">Category: {{ product.category.name }}</span>
+            <h3 class="text-primary mb-3">Price:{{ product.price }} $</h3>
+            {% if product.stock > 0 %}
+                <p class="text-success fw-semibold">Stock:{{ product.stock }}</p>
+            {% else %}
+                <p class="text-danger fw-semibold">Out of stock</p>
+            {% endif %}
+            <h5>Description</h5>
+            <p class="text-muted">
+                {% if product.description %}
+                    {{ product.description }}
+                {% else %}
+                    No description
+                {% endif %}
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}
