@@ -13,8 +13,7 @@
                 <a href="/" class="btn btn-outline-primary w-100">Continue shopping</a>
             </div>
         </div>
-    </div>
-    <div class="col-lg-8">
+    <!-- <div class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">My Orders</h2>
         </div>
@@ -57,5 +56,54 @@
         <p class="text-muted">Your order history will appear here. </p>
         <a href="/" class="btn btn-primary">Go to catalog</a>
     </div>
-    {% endif %}
+    {% endif %} -->
+
+
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 rounded-4 p-4">
+        <h2 class="fw-bold mb-4">My Orders</h2>
+        
+        {% if orders %}
+        <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+        <tr>
+        <th>Order</th>
+        <th>Date</th>
+        <th>Total</th>
+        <th>Paid</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        {% for order in orders %}
+        <tr>
+        <td><strong>#{{ order.id }}</strong></td>
+        <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+        <td><strong>${{ order.get_total_price|floatformat:2 }}</strong></td>
+        <td>
+        {% if order.paid %}
+        <span class="badge bg-success">Paid</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">No</span>
+        {% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <h4>No orders yet</h4>
+            <p class="text-muted">Your orders will appear here.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">
+            Go to catalog
+            </a>
+        </div>
+        {% endif %}
+        </div>
+        </div>
+    </div>
+    </div>
 {% endblock%}
