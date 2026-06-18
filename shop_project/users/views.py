@@ -15,7 +15,7 @@ def register_view(request):
         form = RegisterForm()
     return render(
         request,
-        'accounts/register.html',
+        'users/register.html',
         {'form': form}
     )
 @login_required
@@ -24,6 +24,6 @@ def profile_view(request):
         user = request.user
     ).order_by('created_at')
     return render(
-        request, 'accounts/profile.html',
+        request, 'users/profile.html',
         {'orders': orders}
     )
