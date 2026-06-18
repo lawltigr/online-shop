@@ -1,17 +1,52 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-sm p-4">
-                <h2 class="mb-4">Create account</h2>
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm p-4 border-0 rounded-4">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Create account</h2>
+                    <p class="text-muted mb-0">Join Online Shop and start ordering</p>
+                </div>
                 <form method="post">
                     {% csrf_token %}
-                    {{form.as_p}}
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="text-danger small">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger small">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <div class="text-danger small">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm password</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <div class="text-danger small">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
                     <button class="btn btn-primary w-100" type="submit">Register</button>
                 </form>
-                <p class="mt-3 text-center">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+                <div class="text-center mt-3">
+                    <span class="mt-3 text-center">Already have an account?</span><a href="{% url 'login' %}" class="text-decoration-none fw-semibold">Login</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 {% endblock %}
