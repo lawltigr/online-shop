@@ -1,64 +1,39 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
+<div class="container py-4">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissable fade show">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <h1 class="fw-bold mb-4">My Profile</h1>
     <div class="row g-4">
         <div class="col-lg-4">
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm border-0 rounded-4 p-4 text-center">
+                {% if user.profile.avatar %}
+                <img src="{{user.profile.avatar.url}}" class="rounded-circle mx-auto mb-3" style="width: 110px; height: 110px; object-fit: cover;">
+                {% else %}
                 <div class="mx-auto mb-3 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; font-size: 36px; font-weight: 700;">
                     {{user.username|first|upper}}
                 </div>
+                {% endif %}
                 <h3 class="mb-1">{{ user.username }}</h3>
                 <p class="text-muted mb-3">{{user.email}}</p>
+                {% if user.profile.phone %}
+                <p class="mb-1"><strong>Phone: </strong>{{user.profile.phone}}</p>
+                {% endif %}
+                {% if user.profile.address %}
+                <p class="text-muted small mb-3">{{user.profile.address}}</p>
+                {% endif %}
+                <!-- herreee -->
                 <span class="badge bg-success mb-3">Customer</span>
                 <a href="/" class="btn btn-outline-primary w-100">Continue shopping</a>
             </div>
         </div>
-    <!-- <div class="col-lg-8">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">My Orders</h2>
-        </div>
-    </div>
-    
-    {% if orders %}
-    <div class="card shadow-sm">
-        <div class="table-responsive">
-            <table class="table align-middle table-hover bg-white">
-                <thead class="table-light">
-                    <tr>
-                        <th>Order</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Paid</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
-                        <tr>
-                            <td>#{{ order.id }}</td>
-                            <td>{{ order.created_at }}</td>
-                            <td>${{ order.get_total_price }}</td>
-                            <td>
-                                {% if order.paid %}
-                                    <span class="badge bg-success">Yes</span>
-                                {% else %}
-                                    <span class="badge bg-warning text-dark">No</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% else %}
-    <div class="card-shadow-sm p-5 text-center">
-        <h4>No orders yet</h4>
-        <p class="text-muted">Your order history will appear here. </p>
-        <a href="/" class="btn btn-primary">Go to catalog</a>
-    </div>
-    {% endif %} -->
-
-
     <div class="col-lg-8">
         <div class="card shadow-sm border-0 rounded-4 p-4">
         <h2 class="fw-bold mb-4">My Orders</h2>

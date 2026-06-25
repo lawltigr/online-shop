@@ -3,6 +3,9 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
 from orders.models import Order
+from django.contrib import messages
+from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import Profile
 
 def register_view(request):
     if request.method == 'POST':
@@ -18,12 +21,25 @@ def register_view(request):
         'users/register.html',
         {'form': form}
     )
+
 @login_required
 def profile_view(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance = request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance = profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('users:profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
     orders = Order.objects.filter(
         user = request.user
     ).order_by('created_at')
     return render(
         request, 'users/profile.html',
-        {'orders': orders}
+        {'orders': orders, 'user_form': user_form, 'profile_form': profile_form}
     )
