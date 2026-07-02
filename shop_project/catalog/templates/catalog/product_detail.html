@@ -31,6 +31,13 @@
                     No description
                 {% endif %}
             </p>
+            <div class="d-flex gap-3 mt-4">
+                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="flex-fill">
+                    {% csrf_token %}
+                    <button class="btn btn-success btn-lg w-100" type="submit" {% if product.stock == 0 %}disabled{% endif %}>Add to cart</button>
+                </form>
+                <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary btn-lg">Back</a>
+            </div>
         </div>
     </div>
 </div>
