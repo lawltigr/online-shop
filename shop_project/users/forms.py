@@ -45,7 +45,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model=Profile
         fields=['avatar', 'phone', 'address']
         widgets={
-            'avatar':forms.FileInput(attra={'class': 'form-control'}),
-            'phone':forms.TextInput(attra={'class': 'form-control', 'placeholder': '+7 777 777 77 77'}),
-            'address':forms.Textarea(attra={'class': 'form-control', 'placeholder': 'Delivery address', 'rows': 3}),
+            'avatar':forms.FileInput(attrs={'class': 'form-control'}),
+            'phone':forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+7 777 777 77 77'}),
+            'address':forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Delivery address', 'rows': 3}),
         }

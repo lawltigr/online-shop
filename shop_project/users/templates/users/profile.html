@@ -29,12 +29,42 @@
                 {% if user.profile.address %}
                 <p class="text-muted small mb-3">{{user.profile.address}}</p>
                 {% endif %}
-                <!-- herreee -->
+                
                 <span class="badge bg-success mb-3">Customer</span>
                 <a href="/" class="btn btn-outline-primary w-100">Continue shopping</a>
             </div>
         </div>
-    <div class="col-lg-8">
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+                <h2 class="fw-bold mb-4">Edit Profile</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Username</label>
+                            {{ user_form.username }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            {{ user_form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone</label>
+                            {{ profile_form.phone }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Avatar</label>
+                            {{ profile_form.avatar }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Delivery address</label>
+                            {{ profile_form.address }}
+                        </div>
+                    </div>
+                    <button class="btn btn-primary mt-4" type="submit">Save changes</button>
+                </form>
+            </div>
         <div class="card shadow-sm border-0 rounded-4 p-4">
         <h2 class="fw-bold mb-4">My Orders</h2>
         
